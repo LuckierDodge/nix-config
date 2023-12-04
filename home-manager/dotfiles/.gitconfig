@@ -1,0 +1,56 @@
+[user]
+	name = Ryan Lewis
+	email = accounts+github@ryandlewis.dev
+[core]
+	editor = vim
+[color]
+	ui = auto
+[color "branch"]
+	current = cyan
+	local = yellow
+	remote = red
+[color "diff"]
+	meta = yellow bold
+	frag = cyan
+	old = red
+	new = green
+	whitespace = white reverse
+[color "status"]
+	added = green
+	changed = yellow
+	untracked = red
+	branch = blue
+[alias]
+	c = commit
+	cm = commit -m
+	ca = commit -a
+	cma = commit -m -a
+	br = branch
+	st = status -s
+	conf = config --global -e
+	plog = log --graph --pretty=format:'%h -%d %s %n' --abbrev-commit --date=relative --branches
+	history = log --all --graph --pretty=format:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+	hist = log --all --graph --pretty=format:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+	summary = log --pretty=format:'%Cred%h%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+	sum = log --pretty=format:'%Cred%h%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+[push]
+	default = simple
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[pull]
+	rebase = false
+[commit]
+	template = ~/.gitmessage
+[credential "https://github.com"]
+	helper = 
+	helper = !/home/luckierdodge/.nix-profile/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/home/luckierdodge/.nix-profile/bin/gh auth git-credential
+[safe]
+	directory = /home/luckierdodge/rtl8812au/
+[init]
+	defaultBranch = main

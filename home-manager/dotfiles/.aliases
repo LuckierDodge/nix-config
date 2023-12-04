@@ -1,0 +1,106 @@
+# Alias definitions
+# terminal ease of use
+# alias rst="source ~/.bashrc"
+rst() {
+	if [[ "$SHELL" == *"zsh"* ]]; then
+		source ~/.zshrc
+	fi
+	if [[ "$SHELL" == *"bash"* ]]; then
+		source ~/.bashrc
+	fi
+}
+cdl() {
+	cd "$1"
+	ls
+}
+src() {
+	set -a
+	source "$1"
+	set +a
+}
+hist() {
+	history | grep "$@"
+}
+update() {
+	if type "apt" > /dev/null; then
+		echo "Running apt"
+		sudo apt update -y && sudo apt upgrade -y && sudo apt auto-remove -y
+	fi
+	if type "nix-channel" > /dev/null; then
+		echo "Running nix channels"
+		nix-channel --update
+	fi
+	if type "nixos-rebuild" > /dev/null; then
+		echo "Running nixos-rebuild"
+		sudo nixos-rebuild switch
+	fi
+	if type "nix-env" > /dev/null; then
+		echo "Running nix-env"
+		nix-env -u '*'
+	fi
+	if type "home-manager" > /dev/null; then
+		echo "Running home-manager"
+		home-manager build && home-manager switch
+	fi
+}
+
+# dev server aliases
+alias pocketinfinitycode='ssh -N -f -L 8443:localhost:8443 pocketinfinity'
+alias pocketjupyter='ssh -N -f -L 8888:localhost:8888 pocketinfinity'
+
+# ssh aliases
+# ssh for NIU resources
+alias flickjupyter='ssh -N -f -M -S /tmp/flickjupyter-sock -L 8888:localhost:8888 luckierdodge@flick.cs.niu.edu flickjupyter && echo "Success! Connect to http://localhost:8888."'
+alias baileyjupyter='ssh -N -f -M -S /tmp/baileyjupyter-sock -L 9999:localhost:9999 luckierdodge@bailey.cs.niu.edu baileyjupyter && echo "Success! Connect to http://localhost:9999"'
+alias killflickjupyter='ssh -S /tmp/flickjupyter-sock -O exit flickjupyter'
+alias killbaileyjupyter='ssh -S /tmp/baileyjupyter-sock -O exit baileyjupyter'
+
+# ls and grep color support
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+fi
+
+# more ls aliases
+alias ll='ls -alhFo'
+alias la='ls -A'
+alias l='ls -CF'
+
+# tmux session alias
+alias homemux='tmux new -A -s Home'
+alias homemuxnew='tmux new -A -s Home \; new-window'
+mux() {
+	tmux new -A -s "$1"
+}
+
+# Updating and Upgrading
+#alias update='sudo apt update -y && sudo apt upgrade -y'
+#alias update-ding='sudo apt update -y && sudo apt upgrade -y && ding'
+alias updateprotonvpn='sudo pip3 install protonvpn-cli --upgrade'
+alias fixtime='sudo ntpdate time.windows.com'
+
+# Docker aliases
+alias dc="docker compose"
+alias dcupdate="docker compose pull && docker compose down && docker compose up -d"
+alias dockerkillall='docker rm $(docker ps -aq)'
+
+# Fun terminal stuff
+alias ding='paplay /usr/share/sounds/freedesktop/stereo/complete.oga'
+alias say='echo "$1" | espeak -v mb-us1'
+
+# Rover and ROS Aliases
+alias roverlaunch='/home/luckierdodge/repos/Dockerfiles/ros2_foxy/launch.sh'
+alias roverattach='/home/luckierdodge/repos/Dockerfiles/ros2_foxy/attach.sh'
+alias rosdepupdate='rosdep update && rosdep install -i --from-path ~/dev_ws/src --rosdistro foxy -y'
+alias rosdepinstall='rosdep install --from-paths src --ignore-src -r -y'
+
+
+# Mcity Aliases
+alias mcity-build="src .env && docker compose -f docker-compose-dev.yml build"
+alias mcity-run="docker compose -f docker-compose-dev.yml up"
+alias scheduling-web="docker exec -it scheduling_host /bin/bash -c 'source .env && npm run serve'"
+#alias keys-web="docker exec -it keys_host /binb/bash -c 'source .env && npm run serve'"
+
