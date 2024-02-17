@@ -89,6 +89,7 @@
     #".tmux.conf".source = ./dotfiles/.tmux.conf;
     ".config/alacritty/alacritty.yml".source = ./dotfiles/alacritty.yml;
     ".config/starship/starship.toml".source = ./dotfiles/starship.toml;
+    ".sops.yaml".source = ./dotfiles/.sops.yaml;
   };
 
   # ZSH

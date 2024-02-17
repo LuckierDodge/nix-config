@@ -23,6 +23,7 @@
     # Import your generated (nixos-generate-config) hardware configuration
     ./hardware-configuration.nix
     inputs.home-manager.nixosModules.home-manager
+#    <sops-nix/modules/sops>
   ];
 
   nixpkgs = {
@@ -138,6 +139,7 @@
     zsh
     inputs.home-manager.packages.${pkgs.system}.default
     firefox
+    age
   ];
 
   # Set hostname
@@ -175,8 +177,68 @@
   systemd.targets.hybrid-sleep.enable = false;
   systemd.services.NetworkManager-wait-online.enable = false;
 
-  # TODO: Filesystems
+  #sops.defaultSopsFile = ../secrets/samba.yaml;
+ sops.age.keyFile = "/home/luckierdodge/.config/sops/age/keys.txt";
+ sops.age.generateKey = false;
+ sops.secrets.samba_password = {
+   format = "yaml";
+   sopsFile = ../secrets/samba.yaml;
+ };
 
+  # TODO: Filesystems
+  fileSystems = {
+    "/home/luckierdodge/havoc-data" = {
+      device = "//192.168.0.144/havoc-data";
+      fsType = "cifs";
+      options = [
+        "vers=3.0"
+        "username=luckierdodge"
+        "password=${builtins.readFile /run/secrets/samba_password}"
+        "uid=1000"
+        "gid=100"
+        "iocharset=utf8"
+        "forceuid"
+        "forcegid"
+        "file_mode=0777"
+        "dir_mode=0777"
+        "noperm"
+      ];
+    };
+    "/home/luckierdodge/media-storage" = {
+      device = "//192.168.0.144/media-storage";
+      fsType = "cifs";
+      options = [
+        "vers=3.0"
+        "username=luckierdodge"
+        "password=${builtins.readFile /run/secrets/samba_password}"
+        "uid=1000"
+        "gid=1000"
+        "iocharset=utf8"
+        "forceuid"
+        "forcegid"
+        "file_mode=0777"
+        "dir_mode=0777"
+        "noperm"
+      ];
+    };
+    "/home/luckierdodge/madcat-backup" = {
+      device = "//192.168.0.144/madcat-backup";
+      fsType = "cifs";
+      options = [
+        "vers=3.0"
+        "username=luckierdodge"
+        "password=${builtins.readFile /run/secrets/samba_password}"
+        "uid=1000"
+        "gid=1000"
+        "iocharset=utf8"
+        "forceuid"
+        "forcegid"
+        "file_mode=0777"
+        "dir_mode=0777"
+        "noperm"
+      ];
+    };
+  };
 
   # Nix Maintenance
   nix.gc = {
@@ -226,4 +288,5 @@
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "23.05";
+
 }

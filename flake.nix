@@ -13,18 +13,24 @@
     home-manager.url = "github:nix-community/home-manager/release-23.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
+    vscode-server.url = "github:nix-community/nixos-vscode-server";
     # TODO: Add any other flake you might need
     # hardware.url = "github:nixos/nixos-hardware";
 
     # Shameless plug: looking for a way to nixify your themes and make
     # everything match nicely? Try nix-colors!
     # nix-colors.url = "github:misterio77/nix-colors";
+
+    # sops-nix
+    sops-nix.url = "github:Mic92/sops-nix";
   };
 
   outputs = {
     self,
     nixpkgs,
     home-manager,
+    sops-nix,
+    vscode-server,
     ...
   } @ inputs: let
     inherit (self) outputs;
@@ -69,6 +75,11 @@
             home-manager.useUserPackages = true;
             home-manager.users.luckierdodge = import ./home-manager/home.nix;
           }
+          sops-nix.nixosModules.sops
+          vscode-server.nixosModules.default
+          ({ config, pkgs, ... }: {
+            services.vscode-server.enable = true;
+          })
         ];
       };
     };

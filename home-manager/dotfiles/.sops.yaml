@@ -1,0 +1,7 @@
+keys:
+  - &server_killingtime age1h9jkfjcp9pweznqx62q5akmedf7ahmd7cmw5ra35mhw8njhzcvkqrzaa7u
+creation_rules:
+  - path_regex: secrets/[^/]+\.(yaml|json|env|ini)$
+    key_groups:
+    - age:
+      - *server_killingtime
