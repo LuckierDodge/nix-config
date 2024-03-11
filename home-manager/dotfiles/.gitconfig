@@ -46,10 +46,12 @@
 	template = ~/.gitmessage
 [credential "https://github.com"]
 	helper = 
+	helper = !gh auth git-credential
 	helper = !/home/luckierdodge/.nix-profile/bin/gh auth git-credential
 	helper = !/etc/profiles/per-user/luckierdodge/bin/gh auth git-credential
 [credential "https://gist.github.com"]
 	helper = 
+	helper = !gh auth git-credential
 	helper = !/home/luckierdodge/.nix-profile/bin/gh auth git-credential
 	helper = !/etc/profiles/per-user/luckierdodge/bin/gh auth git-credential
 [safe]
