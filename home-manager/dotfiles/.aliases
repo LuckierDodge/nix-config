@@ -44,17 +44,6 @@ update() {
 	fi
 }
 
-# dev server aliases
-alias pocketinfinitycode='ssh -N -f -L 8443:localhost:8443 pocketinfinity'
-alias pocketjupyter='ssh -N -f -L 8888:localhost:8888 pocketinfinity'
-
-# ssh aliases
-# ssh for NIU resources
-alias flickjupyter='ssh -N -f -M -S /tmp/flickjupyter-sock -L 8888:localhost:8888 luckierdodge@flick.cs.niu.edu flickjupyter && echo "Success! Connect to http://localhost:8888."'
-alias baileyjupyter='ssh -N -f -M -S /tmp/baileyjupyter-sock -L 9999:localhost:9999 luckierdodge@bailey.cs.niu.edu baileyjupyter && echo "Success! Connect to http://localhost:9999"'
-alias killflickjupyter='ssh -S /tmp/flickjupyter-sock -O exit flickjupyter'
-alias killbaileyjupyter='ssh -S /tmp/baileyjupyter-sock -O exit baileyjupyter'
-
 # ls and grep color support
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
@@ -85,22 +74,18 @@ alias fixtime='sudo ntpdate time.windows.com'
 # Docker aliases
 alias dc="docker compose"
 alias dcupdate="docker compose pull && docker compose down && docker compose up -d"
-alias dockerkillall='docker rm $(docker ps -aq)'
+alias dockerkillall='docker rm -f $(docker ps -aq)'
 
 # Fun terminal stuff
 alias ding='paplay /usr/share/sounds/freedesktop/stereo/complete.oga'
 alias say='echo "$1" | espeak -v mb-us1'
 
-# Rover and ROS Aliases
-alias roverlaunch='/home/luckierdodge/repos/Dockerfiles/ros2_foxy/launch.sh'
-alias roverattach='/home/luckierdodge/repos/Dockerfiles/ros2_foxy/attach.sh'
+# ROS Aliases
 alias rosdepupdate='rosdep update && rosdep install -i --from-path ~/dev_ws/src --rosdistro foxy -y'
 alias rosdepinstall='rosdep install --from-paths src --ignore-src -r -y'
 
-
-# Mcity Aliases
-alias mcity-build="src .env && docker compose -f docker-compose-dev.yml build"
-alias mcity-run="docker compose -f docker-compose-dev.yml up"
-alias scheduling-web="docker exec -it scheduling_host /bin/bash -c 'source .env && npm run serve'"
-#alias keys-web="docker exec -it keys_host /binb/bash -c 'source .env && npm run serve'"
+# Python
+alias srcvenv='src .venv/bin/activate'
+alias mkvenv='python -m venv .venv && srcvenv'
+alias rmvenv='rm -r .venv'
 

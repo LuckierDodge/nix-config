@@ -3,14 +3,14 @@
 
   inputs = {
     # Nixpkgs
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
     # You can access packages and modules from different nixpkgs revs
     # at the same time. Here's an working example:
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     # Also see the 'unstable-packages' overlay at 'overlays/default.nix'.
 
     # Home manager
-    home-manager.url = "github:nix-community/home-manager/release-23.05";
+    home-manager.url = "github:nix-community/home-manager/release-23.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     vscode-server.url = "github:nix-community/nixos-vscode-server";
@@ -23,6 +23,10 @@
 
     # sops-nix
     sops-nix.url = "github:Mic92/sops-nix";
+
+    # darwin (for supporting Mac's ugh)
+    darwin.url = "github:lnl7/nix-darwin";
+    darwin.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = {
@@ -31,6 +35,7 @@
     home-manager,
     sops-nix,
     vscode-server,
+    darwin,
     ...
   } @ inputs: let
     inherit (self) outputs;
@@ -54,13 +59,13 @@
     formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.alejandra);
 
     # Your custom packages and modifications, exported as overlays
-    overlays = import ./overlays {inherit inputs;};
+    #overlays = import ./overlays {inherit inputs;};
     # Reusable nixos modules you might want to export
     # These are usually stuff you would upstream into nixpkgs
-    nixosModules = import ./modules/nixos;
+    #nixosModules = import ./modules/nixos;
     # Reusable home-manager modules you might want to export
     # These are usually stuff you would upstream into home-manager
-    homeManagerModules = import ./modules/home-manager;
+    #homeManagerModules = import ./modules/home-manager;
 
     # NixOS configuration entrypoint
     # Available through 'nixos-rebuild --flake .#your-hostname'
@@ -84,17 +89,39 @@
       };
     };
 
-    # Standalone home-manager configuration entrypoint
-    # Available through 'home-manager --flake .#your-username@your-hostname'
-    homeConfigurations = {
-      "luckierdodge@killingtime" = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
-        extraSpecialArgs = {inherit inputs outputs;};
+    # Nix Darwin Configurations, for our Mac's (ugh)
+    darwinConfigurations = {
+      primemover = darwin.lib.darwinSystem {
+        specialArgs = {inherit inputs outputs;};
         modules = [
-          # > Our main home-manager configuration file <
-          ./home-manager/home.nix
+          ./darwin/primemover.nix
+          home-manager.darwinModules.home-manager {
+            #home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.luckierdodge = import ./home-manager/home.nix;
+          }
         ];
+        #specialArgs = {
+        #  system.configurationRevision = self.rev or self.dirtyRev or null;
+
+        #  # Used for backwards compatibility, please read the changelog before changing.
+        #  # $ darwin-rebuild changelog
+        #  system.stateVersion = 4;
+        #};
       };
     };
+
+    # Standalone home-manager configuration entrypoint
+    # Available through 'home-manager --flake .#your-username@your-hostname'
+    #homeConfigurations = {
+    #  "luckierdodge@killingtime" = home-manager.lib.homeManagerConfiguration {
+    #    pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
+    #    extraSpecialArgs = {inherit inputs outputs;};
+    #    modules = [
+    #      # > Our main home-manager configuration file <
+    #      ./home-manager/home.nix
+    #    ];
+    #  };
+    #};
   };
 }
