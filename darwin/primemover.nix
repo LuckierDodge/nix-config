@@ -73,6 +73,7 @@
     age
     python3
     ollama
+    graphviz
   ];
 
   # ZSH

@@ -64,6 +64,7 @@
     redis
     tree
     du-dust
+    pre-commit
   ];
 
   # Enable home-manager and git

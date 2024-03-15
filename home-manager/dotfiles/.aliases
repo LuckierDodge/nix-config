@@ -44,6 +44,9 @@ update() {
 	fi
 }
 
+# Clear screen when Ctrl + l not available
+alias cls='clear'
+
 # ls and grep color support
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
