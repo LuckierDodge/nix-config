@@ -6,13 +6,8 @@
   pkgs,
   ...
 }: {
-  imports = [
-    ./home.nix
+  home.packages = with pkgs; [
+    # Add your packages here
+    graphviz
   ];
-  # nix.settings = {
-  #   # Enable flakes and new 'nix' command
-  #   experimental-features = "nix-command flakes";
-  #   # Deduplicate and optimize nix store
-  #   auto-optimise-store = true;
-  # };
 }

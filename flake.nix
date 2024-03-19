@@ -120,6 +120,7 @@
        modules = [
          # > Our main home-manager configuration file <
          ./home-manager/stark.nix
+         ./home-manager/home.nix
        ];
      };
     };
