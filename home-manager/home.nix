@@ -50,6 +50,7 @@
   # Set your username
   home = {
     username = "luckierdodge";
+    homeDirectory = "/home/luckierdodge";
   };
 
   # Add stuff for your user as you see fit:
@@ -65,6 +66,7 @@
     tree
     du-dust
     pre-commit
+    act
   ];
 
   # Enable home-manager and git
@@ -87,7 +89,7 @@
     ".profile".source = ./dotfiles/.profile;
     ".tmux".source = ./dotfiles/.tmux;
     #".tmux.conf".source = ./dotfiles/.tmux.conf;
-    ".config/alacritty/alacritty.yml".source = ./dotfiles/alacritty.yml;
+    ".config/alacritty/alacritty.toml".source = ./dotfiles/alacritty.toml;
     ".config/starship/starship.toml".source = ./dotfiles/starship.toml;
     ".sops.yaml".source = ./dotfiles/.sops.yaml;
     ".ssh/.keep".source = builtins.toFile "keep" "";

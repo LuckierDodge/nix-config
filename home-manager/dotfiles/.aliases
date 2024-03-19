@@ -78,6 +78,7 @@ alias fixtime='sudo ntpdate time.windows.com'
 alias dc="docker compose"
 alias dcupdate="docker compose pull && docker compose down && docker compose up -d"
 alias dockerkillall='docker rm -f $(docker ps -aq)'
+alias ghcr_login="docker login ghcr.io -u $USER"
 
 # Fun terminal stuff
 alias ding='paplay /usr/share/sounds/freedesktop/stereo/complete.oga'
