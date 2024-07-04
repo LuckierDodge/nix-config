@@ -95,6 +95,9 @@
     ".ssh/.keep".source = builtins.toFile "keep" "";
   };
 
+  # Starship
+  programs.starship.enable = true;
+
   # ZSH
   programs.zsh = {
     enable = true;
