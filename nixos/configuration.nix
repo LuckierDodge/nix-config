@@ -30,9 +30,9 @@
     # You can add overlays here
     overlays = [
       # Add overlays your own flake exports (from overlays and pkgs dir):
-      outputs.overlays.additions
-      outputs.overlays.modifications
-      outputs.overlays.unstable-packages
+      #outputs.overlays.additions
+      #outputs.overlays.modifications
+      #outputs.overlays.unstable-packages
 
       # You can also add overlays exported from other flakes:
       # neovim-nightly-overlay.overlays.default
@@ -140,6 +140,7 @@
     inputs.home-manager.packages.${pkgs.system}.default
     firefox
     age
+    python3
   ];
 
   # Set hostname
@@ -188,7 +189,7 @@
   # TODO: Filesystems
   fileSystems = {
     "/home/luckierdodge/havoc-data" = {
-      device = "//192.168.0.144/havoc-data";
+      device = "//bigbox/havoc-data";
       fsType = "cifs";
       options = [
         "vers=3.0"
@@ -205,7 +206,7 @@
       ];
     };
     "/home/luckierdodge/media-storage" = {
-      device = "//192.168.0.144/media-storage";
+      device = "//bigbox/media-storage";
       fsType = "cifs";
       options = [
         "vers=3.0"
@@ -222,7 +223,7 @@
       ];
     };
     "/home/luckierdodge/madcat-backup" = {
-      device = "//192.168.0.144/madcat-backup";
+      device = "//bigbox/madcat-backup";
       fsType = "cifs";
       options = [
         "vers=3.0"
