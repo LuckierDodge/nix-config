@@ -213,7 +213,7 @@
         "username=luckierdodge"
         "password=${builtins.readFile /run/secrets/samba_password}"
         "uid=1000"
-        "gid=1000"
+        "gid=100"
         "iocharset=utf8"
         "forceuid"
         "forcegid"
@@ -222,15 +222,15 @@
         "noperm"
       ];
     };
-    "/home/luckierdodge/madcat-backup" = {
-      device = "//bigbox/madcat-backup";
+    "/home/luckierdodge/killingtime-backup" = {
+      device = "//bigbox/killingtime-backup";
       fsType = "cifs";
       options = [
         "vers=3.0"
         "username=luckierdodge"
         "password=${builtins.readFile /run/secrets/samba_password}"
         "uid=1000"
-        "gid=1000"
+        "gid=100"
         "iocharset=utf8"
         "forceuid"
         "forcegid"
