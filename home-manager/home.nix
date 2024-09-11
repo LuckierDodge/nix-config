@@ -67,6 +67,7 @@
     du-dust
     pre-commit
     act
+    lazydocker
   ];
 
   # Enable home-manager and git
