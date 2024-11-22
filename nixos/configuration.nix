@@ -21,7 +21,6 @@
     # ./users.nix
 
     # Import your generated (nixos-generate-config) hardware configuration
-    ./hardware-configuration.nix
     inputs.home-manager.nixosModules.home-manager
 #    <sops-nix/modules/sops>
   ];
@@ -134,7 +133,6 @@
     vim-full # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
     git
-    # openjdk17_headless
     tailscale
     zsh
     inputs.home-manager.packages.${pkgs.system}.default
@@ -142,9 +140,6 @@
     age
     python3
   ];
-
-  # Set hostname
-  networking.hostName = "killingtime";
 
   # Bootloader
   boot.loader.systemd-boot.enable = true;
@@ -178,69 +173,6 @@
   systemd.targets.hybrid-sleep.enable = false;
   systemd.services.NetworkManager-wait-online.enable = false;
 
-  #sops.defaultSopsFile = ../secrets/samba.yaml;
- sops.age.keyFile = "/home/luckierdodge/.config/sops/age/keys.txt";
- sops.age.generateKey = false;
- sops.secrets.samba_password = {
-   format = "yaml";
-   sopsFile = ../secrets/samba.yaml;
- };
-
-  # TODO: Filesystems
-  fileSystems = {
-    "/home/luckierdodge/havoc-data" = {
-      device = "//bigbox/havoc-data";
-      fsType = "cifs";
-      options = [
-        "vers=3.0"
-        "username=luckierdodge"
-        "password=${builtins.readFile /run/secrets/samba_password}"
-        "uid=1000"
-        "gid=100"
-        "iocharset=utf8"
-        "forceuid"
-        "forcegid"
-        "file_mode=0777"
-        "dir_mode=0777"
-        "noperm"
-      ];
-    };
-    "/home/luckierdodge/media-storage" = {
-      device = "//bigbox/media-storage";
-      fsType = "cifs";
-      options = [
-        "vers=3.0"
-        "username=luckierdodge"
-        "password=${builtins.readFile /run/secrets/samba_password}"
-        "uid=1000"
-        "gid=100"
-        "iocharset=utf8"
-        "forceuid"
-        "forcegid"
-        "file_mode=0777"
-        "dir_mode=0777"
-        "noperm"
-      ];
-    };
-    "/home/luckierdodge/killingtime-backup" = {
-      device = "//bigbox/killingtime-backup";
-      fsType = "cifs";
-      options = [
-        "vers=3.0"
-        "username=luckierdodge"
-        "password=${builtins.readFile /run/secrets/samba_password}"
-        "uid=1000"
-        "gid=100"
-        "iocharset=utf8"
-        "forceuid"
-        "forcegid"
-        "file_mode=0777"
-        "dir_mode=0777"
-        "noperm"
-      ];
-    };
-  };
-
   # Nix Maintenance
   nix.gc = {
     automatic = true;
@@ -255,6 +187,7 @@
 
   # Tailscale
   services.tailscale.enable = true;
+  services.tailscale.useRoutingFeatures = "server";
   networking.firewall.checkReversePath = "loose";
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
@@ -273,6 +206,7 @@
       # Import your home-manager configuration
       luckierdodge = import ../home-manager/home.nix;
     };
+    backupFileExtension = "backup";
   };
 
   # This setups a SSH server. Very important if you're setting up a headless system.
@@ -286,8 +220,4 @@
       # PasswordAuthentication = false;
     };
   };
-
-  # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
-  system.stateVersion = "23.05";
-
 }
