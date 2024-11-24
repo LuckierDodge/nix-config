@@ -68,6 +68,7 @@
     pre-commit
     act
     lazydocker
+    neofetch
   ];
 
   # Enable home-manager and git
@@ -92,6 +93,7 @@
     #".tmux.conf".source = ./dotfiles/.tmux.conf;
     ".config/alacritty/alacritty.toml".source = ./dotfiles/alacritty.toml;
     ".config/starship/starship.toml".source = ./dotfiles/starship.toml;
+    ".config/nix/nix.conf".source = ./dotfiles/nix.conf;
     ".sops.yaml".source = ./dotfiles/.sops.yaml;
     ".ssh/.keep".source = builtins.toFile "keep" "";
   };
