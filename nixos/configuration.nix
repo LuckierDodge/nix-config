@@ -97,13 +97,13 @@
   services.xserver.enable = true;
 
   # Enable the KDE Plasma Desktop Environment.
-  services.xserver.displayManager.sddm.enable = true;
+  services.displayManager.sddm.enable = true;
   services.xserver.desktopManager.plasma5.enable = true;
 
   # Configure keymap in X11
   services.xserver = {
-    layout = "us";
-    xkbVariant = "";
+    xkb.layout = "us";
+    xkb.variant = "";
   };
 
   # Enable CUPS to print documents.
@@ -198,6 +198,10 @@
       description = "Ryan D. Lewis";
       extraGroups = [ "networkmanager" "wheel" "docker"];
       shell = pkgs.zsh;
+      openssh.authorizedKeys.keys = [
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDR+XhJiwioD5yOIROSXzPnXdq+H/gdugsEvCfGqi99p ryand@lastprism"
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILIOe47H0qOPG5GHRg0PjHJCFA2BxQhzHx18Ch9iGj0A luckierdodge@lastprism"
+      ];
     };
   };
   home-manager = {
@@ -220,4 +224,7 @@
       # PasswordAuthentication = false;
     };
   };
+
+  # VSCode Server Fix
+  services.vscode-server.enable = true;
 }
