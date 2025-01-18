@@ -137,8 +137,8 @@
           extraSpecialArgs = {inherit inputs outputs;};
         modules = [
           # > Our main home-manager configuration file <
-          ./home-manager/stark.nix
           ./home-manager/home.nix
+          ./home-manager/stark.nix
         ];
       };
       "luckierdodge@cerberus" = home-manager.lib.homeManagerConfiguration {
@@ -147,6 +147,7 @@
         modules = [
           # > Our main home-manager configuration file <
           ./home-manager/home.nix
+          ./home-manager/cerberus.nix
         ];
       };
     };
