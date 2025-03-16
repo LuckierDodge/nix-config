@@ -58,7 +58,7 @@ let g:gitgutter_sign_modified_removed = 'Δ-'
 set number
 
 "Tabs
-set tabstop=4
+set tabstop=2
 set shiftwidth=4
 set scrolloff=10
 
@@ -135,9 +135,9 @@ let &t_EI = "\e[2 q"
 
 
 "Quick Escape
-inoremap ;; <Esc>
-vnoremap ;; <Esc>
-onoremap ;; <Esc>
+inoremap ,, <Esc>
+vnoremap ,, <Esc>
+onoremap ,, <Esc>
 
 "Fingers are already there...
 nnoremap <C-j> <C-d>
