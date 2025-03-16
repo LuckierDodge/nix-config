@@ -49,13 +49,13 @@
  services.samba = {
   enable = true;
   openFirewall = true;
-  securityType = "user";
-  extraConfig = ''
-    server string = bigbox
-    server role = standalone server
-    netbios name = bigbox
-  '';
-  shares = {
+  settings = {
+    global = {
+      "server string" = "bigbox";
+      "server role" = "standalone server";
+      "netbios name" = "bigbox";
+      "security" = "user";
+    };
     "havoc-data" = {
       "path" = "/home/luckierdodge/storage/havoc-data";
       "read only" = false;
