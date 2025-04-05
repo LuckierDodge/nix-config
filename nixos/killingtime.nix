@@ -41,10 +41,9 @@
    sopsFile = ../secrets/samba.yaml;
  };
 
-  # TODO: Filesystems
   fileSystems = {
     "/home/luckierdodge/havoc-data" = {
-      device = "//bigbox/havoc-data";
+      device = "//192.168.4.30/havoc-data";
       fsType = "cifs";
       options = [
         "vers=3.0"
@@ -58,10 +57,16 @@
         "file_mode=0777"
         "dir_mode=0777"
         "noperm"
+        # Automount Options
+        "x-systemd.automount"
+        "noauto"
+        "x-systemd.idle-timeout=60"
+        "x-systemd.device-timeout=5s"
+        "x-systemd.mount-timeout=5s"
       ];
     };
     "/home/luckierdodge/media-storage" = {
-      device = "//bigbox/media-storage";
+      device = "//192.168.4.30/media-storage";
       fsType = "cifs";
       options = [
         "vers=3.0"
@@ -75,10 +80,16 @@
         "file_mode=0777"
         "dir_mode=0777"
         "noperm"
+        # Automount Options
+        "x-systemd.automount"
+        "noauto"
+        "x-systemd.idle-timeout=60"
+        "x-systemd.device-timeout=5s"
+        "x-systemd.mount-timeout=5s"
       ];
     };
     "/home/luckierdodge/killingtime-backup" = {
-      device = "//bigbox/killingtime-backup";
+      device = "//192.168.4.30/killingtime-backup";
       fsType = "cifs";
       options = [
         "vers=3.0"
@@ -92,6 +103,12 @@
         "file_mode=0777"
         "dir_mode=0777"
         "noperm"
+        # Automount Options
+        "x-systemd.automount"
+        "noauto"
+        "x-systemd.idle-timeout=60"
+        "x-systemd.device-timeout=5s"
+        "x-systemd.mount-timeout=5s"
       ];
     };
   };
