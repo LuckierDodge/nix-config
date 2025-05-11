@@ -28,6 +28,7 @@
 
   environment.systemPackages = with pkgs; [
     # openjdk17_headless
+    wakeonlan
   ];
 
   # Set hostname
