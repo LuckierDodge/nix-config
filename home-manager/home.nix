@@ -50,7 +50,7 @@
   # Set your username
   home = {
     username = "luckierdodge";
-    homeDirectory = "/home/luckierdodge";
+    # homeDirectory = "/home/luckierdodge";
   };
 
   # Add stuff for your user as you see fit:
@@ -61,12 +61,13 @@
     duf
     tmux
     fzf
-    starship
+    # starship
     redis
     tree
     du-dust
     pre-commit
     act
+    just
   ];
 
   # Enable home-manager and git
@@ -132,7 +133,7 @@
     zplug = {
       enable = true;
       plugins = [
-        { name = "lukechilds/zsh-nvm"; }
+        #{ name = "lukechilds/zsh-nvm"; }
       ];
     };
   };

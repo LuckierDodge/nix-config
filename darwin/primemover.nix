@@ -74,6 +74,7 @@
     python3
     ollama
     graphviz
+    libusb1
   ];
 
   # ZSH
@@ -142,8 +143,7 @@
   #  };
   #};
 
-  fonts.fontDir.enable = true;
-  fonts.fonts = [
+  fonts.packages = [
     pkgs.nerdfonts
   ];
 }

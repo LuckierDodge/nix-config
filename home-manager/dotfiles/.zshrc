@@ -63,7 +63,7 @@ SOURCE_FILES=(
 	/.container_environment
 	$HOME/.nix-profile/etc/profile.d/nix.sh
 	$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh
-	~/.zplug/init.zsh
+	# ~/.zplug/init.zsh
 )
 
 for (( i = 1; i <= $#SOURCE_FILES; i++ )) do
@@ -78,7 +78,7 @@ done
 export ZSH_TMUX_AUTOSTART=false
 export ZSH_TMUX_AUTOQUIT=false
 export ZSH_TMUX_DEFAULT_SESSION_NAME="Home"
-export STARSHIP_CONFIG=~/repos/config/starship.toml
+# export STARSHIP_CONFIG=~/repos/config/starship.toml
 # plugins=(
 # 	git
 # 	python
@@ -95,18 +95,18 @@ export STARSHIP_CONFIG=~/repos/config/starship.toml
 # 	fzf
 # )
 # plugins=($plugins)
-zplug "lukechilds/zsh-nvm"
+# zplug "lukechilds/zsh-nvm"
 
 # Install zplug plugins if there are plugins that have not been installed
-if ! zplug check --verbose; then
-    printf "Install? [y/N]: "
-    if read -q; then
-        echo; zplug install
-    fi
-fi
+# if ! zplug check --verbose; then
+#     printf "Install? [y/N]: "
+#     if read -q; then
+#         echo; zplug install
+#     fi
+# fi
 
-source $ZSH/oh-my-zsh.sh
-zplug load
+# source $ZSH/oh-my-zsh.sh
+# zplug load
 
 # User configuration
 
