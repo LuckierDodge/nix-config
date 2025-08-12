@@ -75,6 +75,7 @@
     nixfmt-rfc-style
     haskellPackages.cabal-install
     ghc
+    claude-code
   ];
 
   # Enable home-manager and git
