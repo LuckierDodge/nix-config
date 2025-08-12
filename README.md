@@ -9,5 +9,7 @@ System configurations using nix.
 sudo nixos-rebuild switch --impure --flake .#killingtime
 # Home Manager
 home-manager --flake .#luckierdodge@cerberus switch
+# Darwin
+sudo darwin-rebuild switch --flake .#primemover
 ```
 
