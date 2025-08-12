@@ -67,6 +67,8 @@
     du-dust
     pre-commit
     act
+    lazydocker
+    neofetch
     just
   ];
 
@@ -75,7 +77,7 @@
   programs.git.enable = true;
 
   # Nicely reload system units when changing configs
-  systemd.user.startServices = "sd-switch";
+  #systemd.user.startServices = "sd-switch";
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   home.stateVersion = "23.05";
@@ -91,15 +93,20 @@
     ".tmux".source = ./dotfiles/.tmux;
     #".tmux.conf".source = ./dotfiles/.tmux.conf;
     ".config/alacritty/alacritty.toml".source = ./dotfiles/alacritty.toml;
+    ".config/alacritty/themes/themes/everforest_dark.toml".source = ./dotfiles/everforest_dark.toml;
     ".config/starship/starship.toml".source = ./dotfiles/starship.toml;
+    ".config/nix/nix.conf".source = ./dotfiles/nix.conf;
     ".sops.yaml".source = ./dotfiles/.sops.yaml;
     ".ssh/.keep".source = builtins.toFile "keep" "";
   };
 
+  # Starship
+  programs.starship.enable = true;
+
   # ZSH
   programs.zsh = {
     enable = true;
-    enableAutosuggestions = true;
+    autosuggestion.enable = true;
     enableCompletion = true;
     autocd = true;
     history = {
