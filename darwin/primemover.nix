@@ -25,8 +25,6 @@
 #    <sops-nix/modules/sops>
   ];
 
-  # Auto upgrade nix package and the daemon service.
-  services.nix-daemon.enable = true;
   # nix.package = pkgs.nix;
 
   nixpkgs = {
@@ -58,9 +56,8 @@
   nix.settings = {
     # Enable flakes and new 'nix' command
     experimental-features = "nix-command flakes";
-    # Deduplicate and optimize nix store
-    auto-optimise-store = true;
   };
+  nix.optimise.automatic = true;
 
   environment.systemPackages = with pkgs; [
     vim-full # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
@@ -143,7 +140,7 @@
   #  };
   #};
 
-  fonts.packages = [
-    pkgs.nerdfonts
-  ];
+  fonts.packages = [] ++ builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
+  system.stateVersion = 6;
+  system.primaryUser = "luckierdodge";
 }

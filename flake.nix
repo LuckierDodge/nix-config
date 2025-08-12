@@ -3,7 +3,8 @@
 
   inputs = {
     # Nixpkgs
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
+    nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-25.05-darwin";
     nixpkgs-legacy.url = "github:nixos/nixpkgs/nixos-23.11";
     # You can access packages and modules from different nixpkgs revs
     # at the same time. Here's an working example:
@@ -11,7 +12,7 @@
     # Also see the 'unstable-packages' overlay at 'overlays/default.nix'.
 
     # Home manager
-    home-manager.url = "github:nix-community/home-manager/release-24.11";
+    home-manager.url = "github:nix-community/home-manager/release-25.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     vscode-server.url = "github:nix-community/nixos-vscode-server";
@@ -26,8 +27,8 @@
     sops-nix.url = "github:Mic92/sops-nix";
 
     # darwin (for supporting Mac's ugh)
-    darwin.url = "github:lnl7/nix-darwin";
-    darwin.inputs.nixpkgs.follows = "nixpkgs";
+    darwin.url = "github:nix-darwin/nix-darwin/nix-darwin-25.05";
+    darwin.inputs.nixpkgs.follows = "nixpkgs-darwin";
   };
 
   outputs = {
@@ -119,13 +120,13 @@
             home-manager.users.luckierdodge = import ./home-manager/home.nix;
           }
         ];
-        #specialArgs = {
+        specialArgs = {
         #  system.configurationRevision = self.rev or self.dirtyRev or null;
 
         #  # Used for backwards compatibility, please read the changelog before changing.
         #  # $ darwin-rebuild changelog
-        #  system.stateVersion = 4;
-        #};
+	  system.stateVersion = 4;
+        };
       };
     };
 

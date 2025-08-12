@@ -117,7 +117,7 @@
       save = 20000;
       size = 20000;
     };
-    initExtra = (builtins.readFile ./dotfiles/.zshrc);
+    initContent = (builtins.readFile ./dotfiles/.zshrc);
     oh-my-zsh = {
       enable = true;
       theme = "robbyrussel";
