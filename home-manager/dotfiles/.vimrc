@@ -128,7 +128,7 @@ let g:undotree_ShortIndicators = 1
 "Whitespace
 set list
 set listchars=tab:\→\ ,trail:∴
-set showbreak=\ ↩\ 
+set showbreak=\ ↩\
 "Visual Cursor
 let &t_SI = "\e[5 q"
 let &t_EI = "\e[2 q"

@@ -213,4 +213,3 @@ if [ "$START_TMUX" = "TRUE" ] && [ "$TMUX" = "" ]; then
 		homemuxnew
 	fi
 fi
-

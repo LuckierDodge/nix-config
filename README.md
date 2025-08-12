@@ -12,4 +12,3 @@ home-manager --flake .#luckierdodge@cerberus switch
 # Darwin
 sudo darwin-rebuild switch --flake .#primemover
 ```
-

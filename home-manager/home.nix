@@ -7,7 +7,8 @@
   config,
   pkgs,
   ...
-}: {
+}:
+{
   # You can import other home-manager modules here
   imports = [
     # If you want to use modules your own flake exports (from modules/home-manager):
@@ -70,6 +71,10 @@
     lazydocker
     neofetch
     just
+    nixfmt-tree
+    nixfmt-rfc-style
+    haskellPackages.cabal-install
+    ghc
   ];
 
   # Enable home-manager and git
@@ -112,7 +117,15 @@
     history = {
       extended = true;
       ignoreDups = true;
-      ignorePatterns = [ "exit" "ls" "ll" "la" "c" "clear" "cd" ];
+      ignorePatterns = [
+        "exit"
+        "ls"
+        "ll"
+        "la"
+        "c"
+        "clear"
+        "cd"
+      ];
       share = true;
       save = 20000;
       size = 20000;
@@ -150,14 +163,14 @@
     enable = true;
     plugins = with pkgs.vimPlugins; [
       lightline-vim
-    #  vim-surround
+      #  vim-surround
       vim-gitgutter
-    #  ctrlp-vim
-    #  supertab
-    #  vim-fugitive
-    #  vim-visual-multi
-    #  vim-easymotion
-    #  vim_current_word
+      #  ctrlp-vim
+      #  supertab
+      #  vim-fugitive
+      #  vim-visual-multi
+      #  vim-easymotion
+      #  vim_current_word
       nord-vim
       nerdtree
       undotree

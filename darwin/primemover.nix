@@ -7,7 +7,8 @@
   config,
   pkgs,
   ...
-}: {
+}:
+{
   # You can import other NixOS modules here
   imports = [
     # If you want to use modules your own flake exports (from modules/nixos):
@@ -22,7 +23,7 @@
 
     # Import your generated (nixos-generate-config) hardware configuration
     #inputs.home-manager.nixosModules.home-manager
-#    <sops-nix/modules/sops>
+    #    <sops-nix/modules/sops>
   ];
 
   # nix.package = pkgs.nix;
@@ -85,8 +86,6 @@
   #virtualisation.docker.autoPrune.dates = "weekly";
   #virtualisation.docker.autoPrune.flags = [ "--all" ];
 
-
-
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
@@ -114,7 +113,6 @@
   #system.autoUpgrade.enable = true;
   #system.autoUpgrade.allowReboot = true;
 
-
   # Tailscale
   #services.tailscale.enable = true;
   #networking.firewall.checkReversePath = "loose";
@@ -140,7 +138,8 @@
   #  };
   #};
 
-  fonts.packages = [] ++ builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
+  fonts.packages =
+    [ ] ++ builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
   system.stateVersion = 6;
   system.primaryUser = "luckierdodge";
 }
