@@ -6,6 +6,7 @@
   lib,
   config,
   pkgs,
+  nixpkgs-unstable,
   ...
 }:
 {
@@ -75,7 +76,7 @@
     nixfmt-rfc-style
     haskellPackages.cabal-install
     ghc
-    claude-code
+    nixpkgs-unstable.claude-code
   ];
 
   # Enable home-manager and git

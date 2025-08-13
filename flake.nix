@@ -35,6 +35,7 @@
     {
       self,
       nixpkgs,
+      nixpkgs-unstable,
       home-manager,
       sops-nix,
       vscode-server,
@@ -75,17 +76,29 @@
       # NixOS configuration entrypoint
       # Available through 'nixos-rebuild --flake .#your-hostname'
       nixosConfigurations = {
-        killingtime = nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit inputs outputs; };
+        killingtime = let system = "x86_64-linux";
+          nixpkgsUnstableWithUnfree = import nixpkgs-unstable {
+            system = system;
+            config = {
+              allowUnfree = true;
+              allowUnfreePredicate = _: true;
+            };
+          };
+        in nixpkgs.lib.nixosSystem {
+          specialArgs = { inherit inputs outputs; nixpkgs-unstable = nixpkgsUnstableWithUnfree; };
           modules = [
             # > Our main nixos configuration file <
             ./nixos/killingtime.nix
             home-manager.nixosModules.home-manager
-            {
-              #home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.luckierdodge = import ./home-manager/home.nix;
-            }
+            ({ config, pkgs, ... }:
+              {
+                home-manager.useUserPackages = true;
+                home-manager.users.luckierdodge = let lib = pkgs.lib; in import ./home-manager/home.nix {
+                  inherit config pkgs lib inputs outputs;
+                  nixpkgs-unstable = nixpkgsUnstableWithUnfree;
+                };
+              }
+            )
             sops-nix.nixosModules.sops
             vscode-server.nixosModules.default
             (
@@ -96,17 +109,29 @@
             )
           ];
         };
-        bigbox = nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit inputs outputs; };
+        bigbox = let system = "x86_64-linux";
+          nixpkgsUnstableWithUnfree = import nixpkgs-unstable {
+            system = system;
+            config = {
+              allowUnfree = true;
+              allowUnfreePredicate = _: true;
+            };
+          };
+        in nixpkgs.lib.nixosSystem {
+          specialArgs = { inherit inputs outputs; nixpkgs-unstable = nixpkgsUnstableWithUnfree; };
           modules = [
             # > Our main nixos configuration file <
             ./nixos/bigbox.nix
             home-manager.nixosModules.home-manager
-            {
-              #home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.luckierdodge = import ./home-manager/home.nix;
-            }
+            ({ config, pkgs, ... }:
+              {
+                home-manager.useUserPackages = true;
+                home-manager.users.luckierdodge = let lib = pkgs.lib; in import ./home-manager/home.nix {
+                  inherit config pkgs lib inputs outputs;
+                  nixpkgs-unstable = nixpkgsUnstableWithUnfree;
+                };
+              }
+            )
             sops-nix.nixosModules.sops
             vscode-server.nixosModules.default
             (
@@ -121,22 +146,30 @@
 
       # Nix Darwin Configurations, for our Mac's (ugh)
       darwinConfigurations = {
-        primemover = darwin.lib.darwinSystem {
-          specialArgs = { inherit inputs outputs; };
+        primemover = let system = "aarch64-darwin";
+          nixpkgsUnstableWithUnfree = import nixpkgs-unstable {
+            system = system;
+            config = {
+              allowUnfree = true;
+              allowUnfreePredicate = _: true;
+            };
+          };
+        in darwin.lib.darwinSystem {
+          specialArgs = { inherit inputs outputs; nixpkgs-unstable = nixpkgsUnstableWithUnfree; };
           modules = [
             ./darwin/primemover.nix
             home-manager.darwinModules.home-manager
-            {
-              #home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.luckierdodge = import ./home-manager/home.nix;
-            }
+            ({ config, pkgs, ... }:
+              {
+                home-manager.useUserPackages = true;
+                home-manager.users.luckierdodge = let lib = pkgs.lib; in import ./home-manager/home.nix {
+                  inherit config pkgs lib inputs outputs;
+                  nixpkgs-unstable = nixpkgsUnstableWithUnfree;
+                };
+              }
+            )
           ];
           specialArgs = {
-            #  system.configurationRevision = self.rev or self.dirtyRev or null;
-
-            #  # Used for backwards compatibility, please read the changelog before changing.
-            #  # $ darwin-rebuild changelog
             system.stateVersion = 4;
           };
         };
@@ -145,25 +178,34 @@
       # Standalone home-manager configuration entrypoint
       # Available through 'home-manager --flake .#your-username@your-hostname'
       homeConfigurations = {
-        "luckierdodge@stark" = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
-          extraSpecialArgs = { inherit inputs outputs; };
+        "luckierdodge@stark" = let system = "x86_64-linux"; in home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.${system};
+          extraSpecialArgs = {
+            inherit inputs outputs;
+            nixpkgs-unstable = nixpkgs-unstable.legacyPackages.${system};
+          };
           modules = [
             # > Our main home-manager configuration file <
             ./home-manager/home.nix
             ./home-manager/stark.nix
           ];
         };
-        "luckierdodge@lastprism" = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
-          extraSpecialArgs = { inherit inputs outputs; };
+        "luckierdodge@lastprism" = let system = "x86_64-linux"; in home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.${system};
+          extraSpecialArgs = {
+            inherit inputs outputs;
+            nixpkgs-unstable = nixpkgs-unstable.legacyPackages.${system};
+          };
           modules = [
             ./home-manager/home.nix
           ];
         };
-        "luckierdodge@cerberus" = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
-          extraSpecialArgs = { inherit inputs outputs; };
+        "luckierdodge@cerberus" = let system = "x86_64-linux"; in home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.${system};
+          extraSpecialArgs = {
+            inherit inputs outputs;
+            nixpkgs-unstable = nixpkgs-unstable.legacyPackages.${system};
+          };
           modules = [
             ./home-manager/home.nix
             ./home-manager/cerberus.nix
