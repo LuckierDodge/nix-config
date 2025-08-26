@@ -70,7 +70,6 @@
     inputs.home-manager.packages.${pkgs.system}.default
     age
     python3
-    ollama
     graphviz
     libusb1
   ];

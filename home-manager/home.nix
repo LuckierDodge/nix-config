@@ -77,6 +77,7 @@
     haskellPackages.cabal-install
     ghc
     nixpkgs-unstable.claude-code
+    nixpkgs-unstable.aider-chat
   ];
 
   # Enable home-manager and git
