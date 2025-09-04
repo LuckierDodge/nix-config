@@ -78,6 +78,7 @@
     ghc
     nixpkgs-unstable.claude-code
     nixpkgs-unstable.aider-chat
+    nodejs
   ];
 
   # Enable home-manager and git
