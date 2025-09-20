@@ -257,6 +257,7 @@
             };
             modules = [
               ./home-manager/home.nix
+              ./home-manager/lastprism.nix
             ];
           };
         "luckierdodge@cerberus" =

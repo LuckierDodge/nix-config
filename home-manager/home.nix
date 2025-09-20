@@ -76,8 +76,9 @@
     nixfmt-rfc-style
     haskellPackages.cabal-install
     ghc
-    nixpkgs-unstable.claude-code
-    nixpkgs-unstable.aider-chat
+    claude-code
+    # nixpkgs-unstable.claude-code
+    # nixpkgs-unstable.aider-chat
     nodejs
   ];
 
