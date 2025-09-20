@@ -7,7 +7,8 @@
   config,
   pkgs,
   ...
-}: {
+}:
+{
   # You can import other NixOS modules here
   imports = [
     # If you want to use modules your own flake exports (from modules/nixos):
@@ -23,7 +24,7 @@
     # Import your generated (nixos-generate-config) hardware configuration
     ./hardware-configuration-killingtime.nix
     ./configuration.nix
-#    <sops-nix/modules/sops>
+    #    <sops-nix/modules/sops>
   ];
 
   environment.systemPackages = with pkgs; [
@@ -35,12 +36,12 @@
   networking.hostName = "killingtime";
 
   #sops.defaultSopsFile = ../secrets/samba.yaml;
- sops.age.keyFile = "/home/luckierdodge/.config/sops/age/keys.txt";
- sops.age.generateKey = false;
- sops.secrets.samba_password = {
-   format = "yaml";
-   sopsFile = ../secrets/samba.yaml;
- };
+  sops.age.keyFile = "/home/luckierdodge/.config/sops/age/keys.txt";
+  sops.age.generateKey = false;
+  sops.secrets.samba_password = {
+    format = "yaml";
+    sopsFile = ../secrets/samba.yaml;
+  };
 
   fileSystems = {
     "/home/luckierdodge/havoc-data" = {

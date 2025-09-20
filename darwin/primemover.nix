@@ -7,7 +7,8 @@
   config,
   pkgs,
   ...
-}: {
+}:
+{
   # You can import other NixOS modules here
   imports = [
     # If you want to use modules your own flake exports (from modules/nixos):
@@ -22,11 +23,9 @@
 
     # Import your generated (nixos-generate-config) hardware configuration
     #inputs.home-manager.nixosModules.home-manager
-#    <sops-nix/modules/sops>
+    #    <sops-nix/modules/sops>
   ];
 
-  # Auto upgrade nix package and the daemon service.
-  services.nix-daemon.enable = true;
   # nix.package = pkgs.nix;
 
   nixpkgs = {
@@ -58,9 +57,8 @@
   nix.settings = {
     # Enable flakes and new 'nix' command
     experimental-features = "nix-command flakes";
-    # Deduplicate and optimize nix store
-    auto-optimise-store = true;
   };
+  nix.optimise.automatic = true;
 
   environment.systemPackages = with pkgs; [
     vim-full # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
@@ -72,8 +70,8 @@
     inputs.home-manager.packages.${pkgs.system}.default
     age
     python3
-    ollama
     graphviz
+    libusb1
   ];
 
   # ZSH
@@ -86,8 +84,6 @@
   #virtualisation.docker.autoPrune.enable = true;
   #virtualisation.docker.autoPrune.dates = "weekly";
   #virtualisation.docker.autoPrune.flags = [ "--all" ];
-
-
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -116,7 +112,6 @@
   #system.autoUpgrade.enable = true;
   #system.autoUpgrade.allowReboot = true;
 
-
   # Tailscale
   #services.tailscale.enable = true;
   #networking.firewall.checkReversePath = "loose";
@@ -142,8 +137,8 @@
   #  };
   #};
 
-  fonts.fontDir.enable = true;
-  fonts.fonts = [
-    pkgs.nerdfonts
-  ];
+  fonts.packages =
+    [ ] ++ builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
+  system.stateVersion = 6;
+  system.primaryUser = "luckierdodge";
 }

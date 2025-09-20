@@ -7,9 +7,5 @@
   ...
 }:
 {
-  home.packages = with pkgs; [
-    # Add your packages here
-    graphviz
-  ];
   home.homeDirectory = "/home/luckierdodge";
 }

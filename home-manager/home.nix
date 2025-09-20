@@ -6,8 +6,10 @@
   lib,
   config,
   pkgs,
+  nixpkgs-unstable,
   ...
-}: {
+}:
+{
   # You can import other home-manager modules here
   imports = [
     # If you want to use modules your own flake exports (from modules/home-manager):
@@ -50,7 +52,7 @@
   # Set your username
   home = {
     username = "luckierdodge";
-    homeDirectory = "/home/luckierdodge";
+    # homeDirectory = "/home/luckierdodge";
   };
 
   # Add stuff for your user as you see fit:
@@ -61,7 +63,7 @@
     duf
     tmux
     fzf
-    starship
+    # starship
     redis
     tree
     du-dust
@@ -70,6 +72,14 @@
     lazydocker
     neofetch
     just
+    nixfmt-tree
+    nixfmt-rfc-style
+    haskellPackages.cabal-install
+    ghc
+    claude-code
+    # nixpkgs-unstable.claude-code
+    # nixpkgs-unstable.aider-chat
+    nodejs
   ];
 
   # Enable home-manager and git
@@ -112,12 +122,20 @@
     history = {
       extended = true;
       ignoreDups = true;
-      ignorePatterns = [ "exit" "ls" "ll" "la" "c" "clear" "cd" ];
+      ignorePatterns = [
+        "exit"
+        "ls"
+        "ll"
+        "la"
+        "c"
+        "clear"
+        "cd"
+      ];
       share = true;
       save = 20000;
       size = 20000;
     };
-    initExtra = (builtins.readFile ./dotfiles/.zshrc);
+    initContent = (builtins.readFile ./dotfiles/.zshrc);
     oh-my-zsh = {
       enable = true;
       theme = "robbyrussel";
@@ -140,7 +158,7 @@
     zplug = {
       enable = true;
       plugins = [
-        { name = "lukechilds/zsh-nvm"; }
+        #{ name = "lukechilds/zsh-nvm"; }
       ];
     };
   };
@@ -150,14 +168,14 @@
     enable = true;
     plugins = with pkgs.vimPlugins; [
       lightline-vim
-    #  vim-surround
+      #  vim-surround
       vim-gitgutter
-    #  ctrlp-vim
-    #  supertab
-    #  vim-fugitive
-    #  vim-visual-multi
-    #  vim-easymotion
-    #  vim_current_word
+      #  ctrlp-vim
+      #  supertab
+      #  vim-fugitive
+      #  vim-visual-multi
+      #  vim-easymotion
+      #  vim_current_word
       nord-vim
       nerdtree
       undotree
