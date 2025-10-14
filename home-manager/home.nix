@@ -63,7 +63,7 @@
     duf
     tmux
     fzf
-    # starship
+    starship
     redis
     tree
     du-dust
@@ -76,9 +76,12 @@
     nixfmt-rfc-style
     haskellPackages.cabal-install
     ghc
-    nixpkgs-unstable.claude-code
-    nixpkgs-unstable.aider-chat
+    claude-code
+    # nixpkgs-unstable.claude-code
+    # nixpkgs-unstable.aider-chat
     nodejs
+    yarn
+    zellij
   ];
 
   # Enable home-manager and git
