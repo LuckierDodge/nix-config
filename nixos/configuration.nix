@@ -97,7 +97,7 @@
 
   # Enable the KDE Plasma Desktop Environment.
   services.displayManager.sddm.enable = true;
-  services.xserver.desktopManager.plasma5.enable = true;
+  services.desktopManager.plasma6.enable = true;
 
   # Configure keymap in X11
   services.xserver = {
@@ -109,7 +109,7 @@
   services.printing.enable = true;
 
   # Enable sound with pipewire.
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -153,6 +153,14 @@
   virtualisation.docker.autoPrune.enable = true;
   virtualisation.docker.autoPrune.dates = "weekly";
   virtualisation.docker.autoPrune.flags = [ "--all" ];
+  virtualisation.docker.daemon.settings = {
+    userland-proxy = false;
+    experimental = true;
+    ipv6 = true;
+    ip6tables = true;
+    default-network-opts.bridge."com.docker.network.enable_ipv6" = "true";
+    fixed-cidr-v6 = "fd00::/80";
+  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
