@@ -76,6 +76,56 @@
       # NixOS configuration entrypoint
       # Available through 'nixos-rebuild --flake .#your-hostname'
       nixosConfigurations = {
+        aegis =
+          let
+            system = "x86_64-linux";
+            nixpkgsUnstableWithUnfree = import nixpkgs-unstable {
+              system = system;
+              config = {
+                allowUnfree = true;
+                allowUnfreePredicate = _: true;
+              };
+            };
+          in
+          nixpkgs.lib.nixosSystem {
+            specialArgs = {
+              inherit inputs outputs;
+              nixpkgs-unstable = nixpkgsUnstableWithUnfree;
+            };
+            modules = [
+              # > Our main nixos configuration file <
+              ./nixos/aegis.nix
+              home-manager.nixosModules.home-manager
+              (
+                { config, pkgs, ... }:
+                {
+                  home-manager.useUserPackages = true;
+                  home-manager.users.luckierdodge =
+                    let
+                      lib = pkgs.lib;
+                    in
+                    import ./home-manager/home.nix {
+                      inherit
+                        config
+                        pkgs
+                        lib
+                        inputs
+                        outputs
+                        ;
+                      nixpkgs-unstable = nixpkgsUnstableWithUnfree;
+                    };
+                }
+              )
+              sops-nix.nixosModules.sops
+              vscode-server.nixosModules.default
+              (
+                { config, pkgs, ... }:
+                {
+                  services.vscode-server.enable = true;
+                }
+              )
+            ];
+          };
         killingtime =
           let
             system = "x86_64-linux";
