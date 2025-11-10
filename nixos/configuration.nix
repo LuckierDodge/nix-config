@@ -137,6 +137,8 @@
     firefox
     age
     python3
+    vscode
+    parted
   ];
 
   # Bootloader
