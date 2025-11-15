@@ -97,6 +97,8 @@
 
   # Enable the KDE Plasma Desktop Environment.
   services.displayManager.sddm.enable = true;
+  services.displayManager.sddm.wayland.enable = true;
+  services.displayManager.sddm.settings.General.DisplayServer = "wayland";
   services.desktopManager.plasma6.enable = true;
 
   # Configure keymap in X11
@@ -123,6 +125,7 @@
     # no need to redefine it in your config for now)
     #media-session.enable = true;
   };
+  programs.noisetorch.enable = true;
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
@@ -139,6 +142,10 @@
     python3
     vscode
     parted
+    bitwarden-cli
+    steam
+    discord
+    noisetorch
   ];
 
   # Bootloader
@@ -237,4 +244,39 @@
 
   # VSCode Server Fix
   services.vscode-server.enable = true;
+
+  # Steam
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+  };
+
+  # Flatpaks + Flathub
+  services.flatpak.enable = true;
+  services.flatpak.packages = [
+    "com.github.tchx84.Flatseal"
+    "com.bitwarden.desktop"
+    "md.obsidian.Obsidian"
+    "io.github.flattool.Warehouse"
+  ];
+  xdg.portal = {
+    enable = true;
+    config.common.default = [
+      "gtk"
+    ];
+    extraPortals = with pkgs; [
+      xdg-desktop-portal-gtk
+      kdePackages.xdg-desktop-portal-kde
+      xdg-desktop-portal-wlr
+    ];
+  };
+  environment.sessionVariables = {
+    XDG_DATA_DIRS = [
+      "/var/lib/flatpak/exports/share"
+      "$HOME/.local/share/flatpak/exports/share"
+      "$XDG_DATA_DIRS"
+    ];
+  };
+
 }

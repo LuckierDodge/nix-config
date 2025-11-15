@@ -29,6 +29,9 @@
     # darwin (for supporting Mac's ugh)
     darwin.url = "github:nix-darwin/nix-darwin/nix-darwin-25.05";
     darwin.inputs.nixpkgs.follows = "nixpkgs-darwin";
+
+    # nix-flatpak
+    nix-flatpak.url = "github:gmodena/nix-flatpak";
   };
 
   outputs =
@@ -40,6 +43,7 @@
       sops-nix,
       vscode-server,
       darwin,
+      nix-flatpak,
       ...
     }@inputs:
     let
@@ -116,6 +120,7 @@
                     };
                 }
               )
+              nix-flatpak.nixosModules.nix-flatpak
               sops-nix.nixosModules.sops
               vscode-server.nixosModules.default
               (
@@ -167,6 +172,7 @@
                 }
               )
               sops-nix.nixosModules.sops
+              nix-flatpak.nixosModules.nix-flatpak
               vscode-server.nixosModules.default
               (
                 { config, pkgs, ... }:
@@ -217,6 +223,7 @@
                 }
               )
               sops-nix.nixosModules.sops
+              nix-flatpak.nixosModules.nix-flatpak
               vscode-server.nixosModules.default
               (
                 { config, pkgs, ... }:

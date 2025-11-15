@@ -34,26 +34,33 @@
 
   # Set hostname
   networking.hostName = "aegis";
+  networking.firewall.enable = false;
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "25.05";
 
-  {
-    fileSystems."/mnt/aegis-storage" = {
-      device = "/dev/disk/by-label/aegis-storage";
-      fsType = "btrfs";
-      options = [
-        "compress=zstd"  # Compression saves space on media files that aren't already compressed
-        "autodefrag"     # Helps with fragmentation over time
-        "noatime"        # Reduces unnecessary writes
-      ];
-    };
+  fileSystems."/mnt/aegis-storage" = {
+    device = "/dev/disk/by-label/aegis-storage";
+    fsType = "btrfs";
+    options = [
+      "compress=zstd"  # Compression saves space on media files that aren't already compressed
+      "autodefrag"     # Helps with fragmentation over time
+      "noatime"        # Reduces unnecessary writes
+    ];
+  };
+  fileSystems."/mnt/jaina-disk-2" = {
+    device = "/dev/disk/by-label/JainaDisk2";
+    fsType = "ntfs-3g";
+    options = [
+      "r"
+      "uid=1000"
+    ];
+  };
 
-    # Enable Btrfs scrubbing (data integrity checks)
-    services.btrfs.autoScrub = {
-      enable = true;
-      fileSystems = [ "/mnt/aegis-storage" ];
-      interval = "weekly";
-    };
-  }
+  # Enable Btrfs scrubbing (data integrity checks)
+  services.btrfs.autoScrub = {
+    enable = true;
+    fileSystems = [ "/mnt/aegis-storage" ];
+    interval = "weekly";
+  };
 }
