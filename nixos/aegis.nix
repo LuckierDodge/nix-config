@@ -30,6 +30,7 @@
   environment.systemPackages = with pkgs; [
     # openjdk17_headless
     wakeonlan
+    amdgpu_top
   ];
 
   # Set hostname
@@ -43,9 +44,9 @@
     device = "/dev/disk/by-label/aegis-storage";
     fsType = "btrfs";
     options = [
-      "compress=zstd"  # Compression saves space on media files that aren't already compressed
-      "autodefrag"     # Helps with fragmentation over time
-      "noatime"        # Reduces unnecessary writes
+      "compress=zstd" # Compression saves space on media files that aren't already compressed
+      "autodefrag" # Helps with fragmentation over time
+      "noatime" # Reduces unnecessary writes
     ];
   };
   fileSystems."/mnt/jaina-disk-2" = {
