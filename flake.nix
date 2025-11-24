@@ -104,6 +104,9 @@
                 { config, pkgs, ... }:
                 {
                   home-manager.useUserPackages = true;
+                  home-manager.extraSpecialArgs = {
+                    nixpkgs-unstable = nixpkgsUnstableWithUnfree;
+                  };
                   home-manager.users.luckierdodge =
                     let
                       lib = pkgs.lib;

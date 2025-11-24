@@ -8,7 +8,48 @@ This is a personal Nix configuration repository managing system configurations a
 
 ## System Update Commands
 
-### NixOS Systems
+### Just Commands (Recommended)
+The repository includes a `justfile` that provides convenient commands for all operations:
+
+```bash
+# List all available commands
+just
+
+# Auto-detect current system and switch configuration
+just auto-switch
+
+# Auto-detect current system and build configuration
+just auto-build
+
+# Host-specific commands
+just switch <host>           # NixOS hosts: aegis, killingtime, bigbox
+just switch-darwin <host>    # Darwin hosts: primemover
+just switch-hm <host>        # Home Manager: luckierdodge@stark, luckierdodge@lastprism, luckierdodge@cerberus
+
+# Build without switching
+just build <host>
+just build-darwin <host>
+just build-hm <host>
+
+# Flake management
+just update                  # Update all flake inputs
+just update-input <input>    # Update specific input
+just check                   # Check flake configuration
+just fmt                     # Format Nix files
+
+# Maintenance
+just clean                   # Clean user generations
+just clean-system           # Clean system generations
+just clean-all              # Clean both
+just optimize               # Optimize Nix store
+just repair                 # Repair Nix store
+just generations            # Show generations
+just hosts                  # Show all available hosts
+```
+
+### Direct Commands (Manual)
+
+#### NixOS Systems
 ```bash
 # Apply system configuration for specific hosts
 sudo nixos-rebuild switch --impure --flake .#aegis
@@ -19,13 +60,13 @@ sudo nixos-rebuild switch --impure --flake .#bigbox
 sudo nixos-rebuild build --impure --flake .#hostname
 ```
 
-### macOS Systems (nix-darwin)
+#### macOS Systems (nix-darwin)
 ```bash
 # Apply Darwin configuration
 sudo darwin-rebuild switch --flake .#primemover
 ```
 
-### Home Manager (Standalone)
+#### Home Manager (Standalone)
 ```bash
 # Apply user environment configurations
 home-manager switch --flake .#luckierdodge@stark
@@ -33,7 +74,7 @@ home-manager switch --flake .#luckierdodge@lastprism
 home-manager switch --flake .#luckierdodge@cerberus
 ```
 
-### Development Commands
+#### Development Commands
 ```bash
 # Format all Nix files
 nix fmt
@@ -48,6 +89,34 @@ nix flake update
 nix-collect-garbage -d
 sudo nix-collect-garbage -d  # NixOS systems
 ```
+
+### Pre-commit Hooks
+The repository includes pre-commit hooks for code quality and formatting:
+
+```bash
+# Install pre-commit hooks (run once)
+pre-commit install
+
+# Run hooks on all files
+pre-commit run --all-files
+
+# Run hooks on staged files only
+pre-commit run
+```
+
+**Configured hooks:**
+- **nixfmt**: Automatic Nix code formatting
+- **check-yaml**: Validates YAML syntax
+- **check-toml**: Validates TOML syntax
+- **check-ast**: Validates Python AST
+- **check-merge-conflict**: Detects merge conflict markers
+- **check-added-large-files**: Prevents large files from being committed
+- **mixed-line-ending**: Ensures consistent line endings
+- **end-of-file-fixer**: Ensures files end with a newline
+- **trailing-whitespace**: Removes trailing whitespace
+- **check-json5**: Validates JSON5 syntax
+
+The hooks will automatically run before each commit. Use `just fmt` or `nix fmt` to manually format Nix files.
 
 ## Architecture Overview
 
@@ -89,5 +158,7 @@ The configuration includes development tools like:
 - Terminal tools (tmux, zsh, starship, fzf)
 - Editors (Vim, VSCode)
 - Claude Code CLI
+- **just**: Command runner for task automation
+- **pre-commit**: Git hook framework for code quality
 
-When modifying configurations, always test with `nixos-rebuild build` or equivalent before switching to avoid breaking system state.
+When modifying configurations, always test with `just build <host>` or equivalent before switching to avoid breaking system state. The pre-commit hooks will automatically validate and format code before commits.
