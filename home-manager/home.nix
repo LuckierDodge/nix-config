@@ -82,6 +82,8 @@
     nodejs
     yarn
     zellij
+    mongodb-tools
+    postgresql
   ];
 
   # Enable home-manager and git
