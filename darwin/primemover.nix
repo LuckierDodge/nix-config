@@ -72,6 +72,7 @@
     python3
     graphviz
     libusb1
+    pgadmin4-desktopmode
   ];
 
   # ZSH
