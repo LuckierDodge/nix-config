@@ -161,7 +161,7 @@
       ];
     };
     zplug = {
-      enable = true;
+      enable = false;
       plugins = [
         #{ name = "lukechilds/zsh-nvm"; }
       ];
