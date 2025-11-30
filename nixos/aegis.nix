@@ -31,6 +31,7 @@
     # openjdk17_headless
     wakeonlan
     amdgpu_top
+    bambu-studio
   ];
 
   # Set hostname

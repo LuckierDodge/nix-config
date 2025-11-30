@@ -78,7 +78,7 @@
     ghc
     # claude-code
     nixpkgs-unstable.claude-code
-    # nixpkgs-unstable.aider-chat
+    nixpkgs-unstable.aider-chat
     nodejs
     yarn
     zellij
