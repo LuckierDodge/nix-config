@@ -84,6 +84,7 @@
     zellij
     mongodb-tools
     postgresql
+    mosh
   ];
 
   # Enable home-manager and git

@@ -6,6 +6,7 @@
   lib,
   config,
   pkgs,
+  nixpkgs-unstable,
   ...
 }:
 {
@@ -146,6 +147,7 @@
     steam
     discord
     noisetorch
+    nixpkgs-unstable.ollama
   ];
 
   # Bootloader

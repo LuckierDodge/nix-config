@@ -59,6 +59,14 @@
       # This is a function that generates an attribute by calling a function you
       # pass to it, with each system as an argument
       forAllSystems = nixpkgs.lib.genAttrs systems;
+      # Helper function to create nixpkgs-unstable with unfree packages allowed
+      mkUnstablePkgs = system: import nixpkgs-unstable {
+        inherit system;
+        config = {
+          allowUnfree = true;
+          allowUnfreePredicate = _: true;
+        };
+      };
     in
     {
       # Your custom packages
@@ -83,13 +91,7 @@
         aegis =
           let
             system = "x86_64-linux";
-            nixpkgsUnstableWithUnfree = import nixpkgs-unstable {
-              system = system;
-              config = {
-                allowUnfree = true;
-                allowUnfreePredicate = _: true;
-              };
-            };
+            nixpkgsUnstableWithUnfree = mkUnstablePkgs system;
           in
           nixpkgs.lib.nixosSystem {
             specialArgs = {
@@ -137,13 +139,7 @@
         killingtime =
           let
             system = "x86_64-linux";
-            nixpkgsUnstableWithUnfree = import nixpkgs-unstable {
-              system = system;
-              config = {
-                allowUnfree = true;
-                allowUnfreePredicate = _: true;
-              };
-            };
+            nixpkgsUnstableWithUnfree = mkUnstablePkgs system;
           in
           nixpkgs.lib.nixosSystem {
             specialArgs = {
@@ -188,13 +184,7 @@
         bigbox =
           let
             system = "x86_64-linux";
-            nixpkgsUnstableWithUnfree = import nixpkgs-unstable {
-              system = system;
-              config = {
-                allowUnfree = true;
-                allowUnfreePredicate = _: true;
-              };
-            };
+            nixpkgsUnstableWithUnfree = mkUnstablePkgs system;
           in
           nixpkgs.lib.nixosSystem {
             specialArgs = {
@@ -243,13 +233,7 @@
         primemover =
           let
             system = "aarch64-darwin";
-            nixpkgsUnstableWithUnfree = import nixpkgs-unstable {
-              system = system;
-              config = {
-                allowUnfree = true;
-                allowUnfreePredicate = _: true;
-              };
-            };
+            nixpkgsUnstableWithUnfree = mkUnstablePkgs system;
           in
           darwin.lib.darwinSystem {
             specialArgs = {
