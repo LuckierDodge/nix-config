@@ -276,12 +276,13 @@
         "luckierdodge@stark" =
           let
             system = "x86_64-linux";
+            nixpkgsUnstableWithUnfree = mkUnstablePkgs system;
           in
           home-manager.lib.homeManagerConfiguration {
             pkgs = nixpkgs.legacyPackages.${system};
             extraSpecialArgs = {
               inherit inputs outputs;
-              nixpkgs-unstable = nixpkgs-unstable.legacyPackages.${system};
+              nixpkgs-unstable = nixpkgsUnstableWithUnfree;
             };
             modules = [
               # > Our main home-manager configuration file <
@@ -292,12 +293,13 @@
         "luckierdodge@lastprism" =
           let
             system = "x86_64-linux";
+            nixpkgsUnstableWithUnfree = mkUnstablePkgs system;
           in
           home-manager.lib.homeManagerConfiguration {
             pkgs = nixpkgs.legacyPackages.${system};
             extraSpecialArgs = {
               inherit inputs outputs;
-              nixpkgs-unstable = nixpkgs-unstable.legacyPackages.${system};
+              nixpkgs-unstable = nixpkgsUnstableWithUnfree;
             };
             modules = [
               ./home-manager/home.nix
@@ -307,12 +309,13 @@
         "luckierdodge@cerberus" =
           let
             system = "x86_64-linux";
+            nixpkgsUnstableWithUnfree = mkUnstablePkgs system;
           in
           home-manager.lib.homeManagerConfiguration {
             pkgs = nixpkgs.legacyPackages.${system};
             extraSpecialArgs = {
               inherit inputs outputs;
-              nixpkgs-unstable = nixpkgs-unstable.legacyPackages.${system};
+              nixpkgs-unstable = nixpkgsUnstableWithUnfree;
             };
             modules = [
               ./home-manager/home.nix
