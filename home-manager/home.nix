@@ -66,7 +66,7 @@
     starship
     redis
     tree
-    du-dust
+    dust
     pre-commit
     act
     lazydocker
@@ -85,6 +85,7 @@
     mongodb-tools
     postgresql
     mosh
+    pdm
   ];
 
   # Enable home-manager and git

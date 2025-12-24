@@ -140,15 +140,27 @@
     inputs.home-manager.packages.${pkgs.system}.default
     firefox
     age
-    python3
     vscode
     parted
     bitwarden-cli
     steam
     discord
+    slack
+    slack-term
+    spotify
     noisetorch
     nixpkgs-unstable.ollama
+    kdePackages.audiocd-kio
+    kdePackages.kaccounts-integration
+    kdePackages.kaccounts-providers
+    asunder
+    python3Packages.pip
+    python3Packages.virtualenv
+    python3Packages.ruff
   ];
+
+  programs.nix-ld.enable = true;
+  # programs.nix-ld.libraries = options.programs.nix-ld.libraries.default;
 
   # Bootloader
   boot.loader.systemd-boot.enable = true;
@@ -166,7 +178,6 @@
   virtualisation.docker.autoPrune.dates = "weekly";
   virtualisation.docker.autoPrune.flags = [ "--all" ];
   virtualisation.docker.daemon.settings = {
-    userland-proxy = false;
     experimental = true;
     ipv6 = true;
     ip6tables = true;
@@ -262,6 +273,8 @@
     "com.bitwarden.desktop"
     "md.obsidian.Obsidian"
     "io.github.flattool.Warehouse"
+    "io.github.alainm23.planify"
+    "org.chromium.Chromium"
   ];
   xdg.portal = {
     enable = true;

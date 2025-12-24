@@ -32,11 +32,27 @@
     wakeonlan
     amdgpu_top
     bambu-studio
+    orca-slicer
   ];
 
   # Set hostname
   networking.hostName = "aegis";
   networking.firewall.enable = false;
+  networking.nat = {
+    enable = true;
+    internalInterfaces = [ "ve-+" ];
+    externalInterface = "eth0";
+    enableIPv6 = true;
+  };
+  networking.firewall.trustedInterfaces = [ "br+" ];
+  networking.firewall = {
+    extraCommands = "
+      iptables -I nixos-fw 1 -i br+ -j ACCEPT
+    ";
+    extraStopCommands = "
+      iptables -D nixos-fw -i br+ -j ACCEPT
+    ";
+  };
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "25.05";
@@ -64,5 +80,6 @@
     enable = true;
     fileSystems = [ "/mnt/aegis-storage" ];
     interval = "weekly";
+    limit = "50M";
   };
 }
