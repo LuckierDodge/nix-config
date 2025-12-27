@@ -33,6 +33,7 @@
     amdgpu_top
     bambu-studio
     orca-slicer
+    google-chrome
   ];
 
   # Set hostname
