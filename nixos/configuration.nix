@@ -157,10 +157,19 @@
     python3Packages.pip
     python3Packages.virtualenv
     python3Packages.ruff
+    appimage-run
+    usbutils
+    kdePackages.kdeconnect-kde
   ];
 
   programs.nix-ld.enable = true;
   # programs.nix-ld.libraries = options.programs.nix-ld.libraries.default;
+
+  # Support running AppImage out-of-the-box
+  programs.appimage = {
+    enable = true;
+    binfmt = true;
+  };
 
   # Bootloader
   boot.loader.systemd-boot.enable = true;

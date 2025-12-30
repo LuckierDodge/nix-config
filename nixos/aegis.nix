@@ -6,6 +6,7 @@
   lib,
   config,
   pkgs,
+  nixpkgs-unstable,
   ...
 }:
 {
@@ -34,7 +35,13 @@
     bambu-studio
     orca-slicer
     google-chrome
+    nixpkgs-unstable.lmstudio
   ];
+
+  # Disable UAS for ASMedia 2115 USB-SATA bridge to fix I/O errors
+  # Forces the device to use standard USB Mass Storage instead
+  # Applies to all drives in the DAS enclosure (174c:55aa)
+  boot.kernelParams = [ "usb-storage.quirks=174c:55aa:u" ];
 
   # Set hostname
   networking.hostName = "aegis";

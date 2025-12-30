@@ -86,6 +86,7 @@
     postgresql
     mosh
     pdm
+    nix-search-cli
   ];
 
   # Enable home-manager and git
