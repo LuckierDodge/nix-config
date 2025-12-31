@@ -153,13 +153,14 @@
     kdePackages.audiocd-kio
     kdePackages.kaccounts-integration
     kdePackages.kaccounts-providers
+    kdePackages.kdeconnect-kde
+    kdePackages.kaddressbook
     asunder
     python3Packages.pip
     python3Packages.virtualenv
     python3Packages.ruff
     appimage-run
     usbutils
-    kdePackages.kdeconnect-kde
   ];
 
   programs.nix-ld.enable = true;
